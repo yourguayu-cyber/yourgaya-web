@@ -3,7 +3,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <!-- Favicon: YOURGAYA Dark Green & Gold Luxury Emblem -->
+  <!-- Favicon: YOURGAYA Glowing Green Luxury Emblem (v2) -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg?v=2">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=2">
   <link rel="icon" type="image/png" sizes="192x192" href="favicon-192x192.png?v=2">
@@ -577,10 +577,35 @@
     }
 
     /* ==============================================================
-       2. MOBILE SPORT-SZENEN LOGIK (< 1024px)
-       - Marathon, Cycling, Hyrox: Bleiben 100% gestochen scharfes Standbild
-       - Other Sports (#multi-sport): Spielt flüssig othersports.mp4
+       2. SPORT-SZENEN OPTIMIERUNG (PC & MOBILE)
+       - Other Sports (#multi-sport): Sowohl auf PC als auch Mobile sofort kristallklar,
+         ohne Weichzeichner / Skalierungs-Ghosting (1.0s Standbild)
+       - Marathon, Cycling, Hyrox:
+         PC (>= 1024px): 2.4s Standbild mit sanftem Ken-Burns-Dissolve
+         Mobile (< 1024px): 100% gestochen scharfes Standbild ohne Video
        ============================================================== */
+    #multi-sport .still-image {
+      transform: none !important;
+      transition: opacity 0.35s ease-out !important;
+      filter: brightness(0.68) contrast(1.08) !important;
+      will-change: opacity;
+    }
+    #multi-sport .scene-video {
+      transform: none !important;
+      transition: none !important;
+      filter: brightness(0.68) contrast(1.08) !important;
+      will-change: auto;
+    }
+    #multi-sport.playing-video .still-image {
+      opacity: 0 !important;
+      transform: none !important;
+      pointer-events: none;
+    }
+    #multi-sport.playing-video .scene-video {
+      transform: none !important;
+      opacity: 1 !important;
+    }
+
     @media (max-width: 1023px) {
       #marathon .scene-video,
       #cycling .scene-video,
@@ -593,29 +618,6 @@
         opacity: 1 !important;
         transform: scale(1.0) !important;
         pointer-events: auto !important;
-      }
-
-      /* Kristalklare Mobile-Wiedergabe für #multi-sport ohne Weichzeichner/Doppelbild */
-      #multi-sport .still-image {
-        transform: none !important;
-        transition: opacity 0.35s ease-out !important;
-        filter: brightness(0.68) contrast(1.08) !important;
-        will-change: opacity;
-      }
-      #multi-sport .scene-video {
-        transform: none !important;
-        transition: none !important;
-        filter: brightness(0.68) contrast(1.08) !important;
-        will-change: auto;
-      }
-      #multi-sport.playing-video .still-image {
-        opacity: 0 !important;
-        transform: none !important;
-        pointer-events: none;
-      }
-      #multi-sport.playing-video .scene-video {
-        transform: none !important;
-        opacity: 1 !important;
       }
     }
   
@@ -1578,9 +1580,9 @@
       window.addEventListener('scroll', checkVisibility, { passive: true });
 
       // 4. STANDBILD -> SCROLL-VIDEO SYNCHRONISATION
-      // Desktop: Alle 4 Szenen mit sanftem Dissolve (2.4s)
-      // Mobile (< 1024px): Marathon, Cycling, Hyrox bleiben reines Standbild;
-      //                     Other Sports (#multi-sport) zeigt Standbild für 1.0s, startet dann gestochen scharf ohne Weichzeichner!
+      // Marathon, Cycling, Hyrox (PC >= 1024px): 2.4s Standbild mit sanftem Ken Burns Dissolve
+      // Marathon, Cycling, Hyrox (Mobile < 1024px): Bleiben 100% reines Standbild
+      // Other Sports (#multi-sport, PC & Mobile): 1.0s Standbild, startet dann sofort kristallklar & flüssig
       const isMobileDevice = () => window.innerWidth < 1024;
       const mediaContainers = document.querySelectorAll('.media-container');
 
@@ -1626,9 +1628,13 @@
                 return;
               }
 
-              // Bei Other Sports auf Mobile Standbild für exakt 1.0s (PC 2.4s)
-              const delay = isMobileDevice() ? 1000 : 2400;
-              if (badgeText) badgeText.textContent = isMobileDevice() ? 'Standbild aktiv (1.0s)...' : 'Standbild aktiv (2.4s)...';
+              // Standbild-Dauer:
+              // Für #multi-sport (PC & Mobile): 1.0s für schnellen, optimalen Start
+              // Für Marathon, Cycling, Hyrox (PC): 2.4s wie gehabt
+              const delay = isMultiSport ? 1000 : 2400;
+              if (badgeText) {
+                badgeText.textContent = isMultiSport ? 'Standbild aktiv (1.0s)...' : 'Standbild aktiv (2.4s)...';
+              }
 
               startTimeout = setTimeout(() => {
                 if (!isMultiSport) {
