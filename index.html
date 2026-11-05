@@ -822,7 +822,7 @@
         <!-- Video links (4 Cols) – Schmal & dezent abgedunkelt, lenkt nicht ab -->
         <div class="lg:col-span-4 media-container media-fly-from-left h-full min-h-[260px] sm:min-h-[300px] lg:min-h-full animated" data-start="0" data-end="9.5">
           <img src="still_marathon.jpg" alt="Marathon Läufer an der Spitze" class="still-image absolute inset-0 w-full h-full object-cover object-center">
-          <video src="hero.mp4" muted="" playsinline="" preload="auto" class="scene-video absolute inset-0 w-full h-full object-cover object-center"></video>
+          <video src="hero.mp4" muted="" playsinline="" preload="none" class="scene-video absolute inset-0 w-full h-full object-cover object-center"></video>
           <!-- Dezent abgedunkelter Look -->
           <div class="absolute inset-0 bg-black/25 pointer-events-none z-12"></div>
           <!-- Sanfter Übergang in den Banner -->
@@ -954,7 +954,7 @@
         <!-- Video rechts (4 Cols) – Schmal & dezent abgedunkelt -->
         <div class="lg:col-span-4 order-1 lg:order-2 media-container media-fly-from-right h-full min-h-[260px] sm:min-h-[300px] lg:min-h-full animated" data-start="10" data-end="19.5">
           <img src="still_cycling.jpg" alt="Rennradfahrer Stadt-Marathon in Paris mit Eiffelturm" class="still-image absolute inset-0 w-full h-full object-cover object-center">
-          <video src="hero.mp4" muted="" playsinline="" preload="auto" class="scene-video absolute inset-0 w-full h-full object-cover object-center"></video>
+          <video src="hero.mp4" muted="" playsinline="" preload="none" class="scene-video absolute inset-0 w-full h-full object-cover object-center"></video>
           <!-- Dezent abgedunkelter Look -->
           <div class="absolute inset-0 bg-black/25 pointer-events-none z-12"></div>
           <!-- Sanfter Übergang in den Banner -->
@@ -975,7 +975,7 @@
         <!-- Video links (4 Cols) – Schmal & dezent abgedunkelt -->
         <div class="lg:col-span-4 media-container media-fly-from-left h-full min-h-[260px] sm:min-h-[300px] lg:min-h-full animated" data-start="20" data-end="29.5">
           <img src="still_hyrox.jpg" alt="HYROX Functional Fitness Arena Sled Push" class="still-image absolute inset-0 w-full h-full object-cover object-center">
-          <video src="hero.mp4" muted="" playsinline="" preload="auto" class="scene-video absolute inset-0 w-full h-full object-cover object-center"></video>
+          <video src="hero.mp4" muted="" playsinline="" preload="none" class="scene-video absolute inset-0 w-full h-full object-cover object-center"></video>
           <!-- Dezent abgedunkelter Look -->
           <div class="absolute inset-0 bg-black/25 pointer-events-none z-12"></div>
           <!-- Sanfter Übergang in den Banner -->
@@ -1131,7 +1131,7 @@
         <!-- Video rechts (4 Cols) – Schmal & dezent abgedunkelt -->
         <div class="lg:col-span-4 order-1 lg:order-2 media-container media-fly-from-right h-full min-h-[260px] sm:min-h-[300px] lg:min-h-full animated" data-start="0" data-end="17">
           <img src="still_othersports.jpg" alt="Tennis und Multi-Sport Performance" class="still-image absolute inset-0 w-full h-full object-cover object-center">
-          <video src="othersports.mp4" muted playsinline preload="auto" loop class="scene-video absolute inset-0 w-full h-full object-cover object-center"></video>
+          <video src="othersports.mp4" muted playsinline preload="none" loop class="scene-video absolute inset-0 w-full h-full object-cover object-center"></video>
           <!-- Dezent abgedunkelter Look -->
           <div class="absolute inset-0 bg-black/25 pointer-events-none z-12"></div>
           <!-- Sanfter Übergang in den Banner -->
@@ -1612,6 +1612,24 @@
       // Other Sports (#multi-sport, PC & Mobile): 1.0s Standbild, startet dann sofort kristallklar & flüssig
       const isMobileDevice = () => window.innerWidth < 1024;
       const mediaContainers = document.querySelectorAll('.media-container');
+
+      // WICHTIG: Lazy-Loading für untere Videoszenen.
+      // Verhindert, dass beim Seitenstart 5 Videos gleichzeitig 125 MB über die Leitung saugen,
+      // wodurch das obere Hero-Video nicht mehr ruckelt oder hängen bleibt!
+      const mediaLazyObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const video = entry.target.querySelector('video');
+            if (video && video.preload !== 'auto') {
+              video.preload = 'auto';
+            }
+            mediaLazyObserver.unobserve(entry.target);
+          }
+        });
+      }, {
+        rootMargin: '600px 0px 600px 0px'
+      });
+      mediaContainers.forEach(c => mediaLazyObserver.observe(c));
 
       mediaContainers.forEach(container => {
         const video = container.querySelector('video');
