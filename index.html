@@ -743,7 +743,7 @@
   <!-- ================= HERO SECTION (DESIGN & TYPOGRAFIE EXAKT WIE REFERENZ) ================= -->
   <section id="vision" class="relative min-h-screen flex items-center pt-16 sm:pt-20 overflow-hidden">
     <div class="absolute inset-0 z-0 overflow-hidden">
-      <video id="hero-full-video" src="hero.mp4" poster="hero_poster.jpg" autoplay loop muted playsinline preload="auto" class="w-full h-full object-cover object-center transform scale-[1.01]"></video>
+      <video id="hero-full-video" src="hero.mp4" poster="hero_poster.jpg" autoplay loop muted playsinline webkit-playsinline preload="auto" class="w-full h-full object-cover object-center transform scale-[1.01]"></video>
       <div class="absolute inset-0 bg-gradient-to-r from-gayaDark/95 via-gayaDark/75 to-transparent"></div>
       <div class="absolute inset-0 bg-gradient-to-t from-gayaDark via-transparent to-gayaDark/30"></div>
     </div>
@@ -788,69 +788,101 @@
     </a>
   </section>
 
-<!-- ================= HERO-VIDEO & AUTO-RESUME LOGIK (MOBILE & DESKTOP) ================= -->
+<!-- ================= HERO-VIDEO & IPHONE AUTO-RESUME WATCHDOG ================= -->
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const heroVideo = document.getElementById('hero-full-video');
+    if (!heroVideo) return;
 
-    function tryPlayHero() {
-      if (heroVideo && heroVideo.paused) {
-        heroVideo.play().catch(() => {});
-      }
-    }
+    // 1. Strikte iOS WebKit Attribute sicherstellen
+    heroVideo.muted = true;
+    heroVideo.defaultMuted = true;
+    heroVideo.loop = true;
+    heroVideo.playsInline = true;
+    heroVideo.setAttribute('playsinline', '');
+    heroVideo.setAttribute('webkit-playsinline', '');
 
-    if (heroVideo) {
+    function kickstartHero() {
+      if (!heroVideo) return;
       heroVideo.muted = true;
-      heroVideo.loop = true;
-      heroVideo.play().catch(() => {});
-
-      // Fallback: Start bei erster Interaktion (falls Autoplay strikt blockiert ist)
-      const playOnFirstTouch = () => {
-        tryPlayHero();
-        window.removeEventListener('click', playOnFirstTouch);
-        window.removeEventListener('touchstart', playOnFirstTouch);
-        window.removeEventListener('scroll', playOnFirstTouch);
-      };
-      window.addEventListener('click', playOnFirstTouch, { once: true });
-      window.addEventListener('touchstart', playOnFirstTouch, { once: true });
-      window.addEventListener('scroll', playOnFirstTouch, { once: true });
+      const promise = heroVideo.play();
+      if (promise !== undefined) {
+        promise.catch(() => {});
+      }
     }
 
-    // ================= REAKTIVIERUNG BEIM ENTSPERREN / TAB-WECHSEL (PAGE VISIBILITY API) =================
-    // Verhindert, dass das Video nach dem Entsperren des Handys oder Tab-Wechsel als Standbild einfriert!
-    function resumeActiveVideos() {
-      // 1. Hero-Video immer wieder fortsetzen
-      tryPlayHero();
+    // Initialer Start
+    kickstartHero();
 
-      // 2. Szenen-Videos reaktivieren, falls ihre Sektion gerade aktiv im Viewport läuft
-      document.querySelectorAll('.media-container.playing-video video').forEach(v => {
-        if (v.paused) {
-          v.play().catch(() => {});
+    // 2. iOS Freeze-Watchdog: Prüft, ob das Video nach dem Entsperren wirklich läuft oder im Limbo hängt
+    let watchdogTimer = null;
+    function verifyHeroPlayback() {
+      if (document.visibilityState !== 'visible') return;
+      if (window.scrollY > window.innerHeight) return;
+
+      const initialTime = heroVideo.currentTime;
+      clearTimeout(watchdogTimer);
+      watchdogTimer = setTimeout(() => {
+        if (document.visibilityState === 'visible' && window.scrollY < window.innerHeight) {
+          // iOS WebKit Bug: heroVideo.paused ist oft false, aber currentTime steht still (Decoder eingefroren)
+          if (heroVideo.paused || heroVideo.currentTime === initialTime) {
+            heroVideo.muted = true;
+            // Nudge zwingt den iOS Hardware-Decoder, einen neuen Frame zu rendern
+            if (!heroVideo.paused && heroVideo.currentTime === initialTime && heroVideo.duration > 0) {
+              try { heroVideo.currentTime += 0.05; } catch(e) {}
+            }
+            kickstartHero();
+          }
         }
-      });
+      }, 350);
     }
 
-    // Erkennt das Entsperren des Smartphone-Bildschirms sowie Tab-Wechsel
-    document.addEventListener('visibilitychange', () => {
+    // 3. Reaktivierung beim Entsperren des Handys / Tab-Wechsel (Page Visibility API)
+    // iOS WebKit benötigt 150-300ms, um die Hardware-Ressourcen des Decoders nach dem Standby neu zuzuordnen.
+    function handleWakeup() {
       if (document.visibilityState === 'visible') {
-        resumeActiveVideos();
+        // Erste Wiederaufnahme nach 200ms (verhindert Race Condition beim Aufwachen)
+        setTimeout(() => {
+          kickstartHero();
+          verifyHeroPlayback();
+        }, 200);
+
+        // Zweiter Kontroll-Check nach 600ms
+        setTimeout(() => {
+          verifyHeroPlayback();
+        }, 600);
+
+        // Aktive untere Szenen-Videos reaktivieren, falls sichtbar
+        document.querySelectorAll('.media-container.playing-video video').forEach(v => {
+          if (v.paused) v.play().catch(() => {});
+        });
+      }
+    }
+
+    document.addEventListener('visibilitychange', handleWakeup);
+    window.addEventListener('pageshow', handleWakeup);
+    window.addEventListener('focus', handleWakeup);
+
+    // 4. Native Pause-Überwachung: Wenn iOS das Video beim Sperren pausiert
+    heroVideo.addEventListener('pause', () => {
+      if (document.visibilityState === 'visible' && window.scrollY < window.innerHeight) {
+        setTimeout(kickstartHero, 200);
       }
     });
 
-    // Absicherung bei Fokus-Rückkehr (Chrome / Safari App-Wechsel)
-    window.addEventListener('focus', resumeActiveVideos);
-    window.addEventListener('pageshow', () => {
-      resumeActiveVideos();
-    });
-
-    // Mobile-Zusatzabsicherung: Falls der Energiesparmodus Autoplay nach dem Entsperren kurz verzögert,
-    // reaktiviert die allererste Berührung das Video sofort.
-    ['touchstart', 'touchend', 'click', 'scroll'].forEach(evt => {
-      window.addEventListener(evt, () => {
-        if (heroVideo && heroVideo.paused && window.scrollY < window.innerHeight) {
-          heroVideo.play().catch(() => {});
+    // 5. User-Interaction Trigger (iOS hebt bei Touch/Scroll alle Autoplay-Restriktionen auf)
+    function onUserInteraction() {
+      if (window.scrollY < window.innerHeight) {
+        if (heroVideo.paused) {
+          kickstartHero();
+        } else {
+          verifyHeroPlayback();
         }
-      }, { passive: true });
+      }
+    }
+
+    ['touchstart', 'touchend', 'click', 'scroll'].forEach(evt => {
+      window.addEventListener(evt, onUserInteraction, { passive: true });
     });
   });
 </script>
