@@ -67,6 +67,9 @@
 
   <!-- Production Tailwind CSS (Lokal, vorkompiliert & minifiziert – ersetzt 124KB CDN) -->
   <link rel="stylesheet" href="tailwind.min.css">
+
+  <!-- Preload Critical Hero Media (Sofortige Anzeige ohne Verzögerung) -->
+  <link rel="preload" as="image" href="hero_poster.jpg" fetchpriority="high">
   <style>
     :root {
       --bg-dark: #040d09;
@@ -740,7 +743,7 @@
   <!-- ================= HERO SECTION (DESIGN & TYPOGRAFIE EXAKT WIE REFERENZ) ================= -->
   <section id="vision" class="relative min-h-screen flex items-center pt-16 sm:pt-20 overflow-hidden">
     <div class="absolute inset-0 z-0 overflow-hidden">
-      <video id="hero-full-video" src="hero.mp4" autoplay loop muted playsinline preload="auto" class="w-full h-full object-cover object-center transform scale-[1.01]"></video>
+      <video id="hero-full-video" src="hero.mp4" poster="hero_poster.jpg" autoplay loop muted playsinline preload="auto" class="w-full h-full object-cover object-center transform scale-[1.01]"></video>
       <div class="absolute inset-0 bg-gradient-to-r from-gayaDark/95 via-gayaDark/75 to-transparent"></div>
       <div class="absolute inset-0 bg-gradient-to-t from-gayaDark via-transparent to-gayaDark/30"></div>
     </div>
@@ -785,29 +788,70 @@
     </a>
   </section>
 
-<!-- ================= HERO-VIDEO (NATIVE FLÜSSIGE ENDLOSSCHLEIFE 0:00 - 47:09) ================= -->
+<!-- ================= HERO-VIDEO & AUTO-RESUME LOGIK (MOBILE & DESKTOP) ================= -->
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const heroVideo = document.getElementById('hero-full-video');
-    if (heroVideo) {
-      const cleanSrc = heroVideo.getAttribute('src').split('#')[0];
-      if (heroVideo.getAttribute('src') !== cleanSrc) {
-        heroVideo.setAttribute('src', cleanSrc);
+
+    function tryPlayHero() {
+      if (heroVideo && heroVideo.paused) {
+        heroVideo.play().catch(() => {});
       }
+    }
+
+    if (heroVideo) {
       heroVideo.muted = true;
       heroVideo.loop = true;
-      heroVideo.play().catch(() => {
-        const playOnInteraction = () => {
-          heroVideo.play().catch(() => {});
-          window.removeEventListener('click', playOnInteraction);
-          window.removeEventListener('touchstart', playOnInteraction);
-          window.removeEventListener('scroll', playOnInteraction);
-        };
-        window.addEventListener('click', playOnInteraction, { once: true });
-        window.addEventListener('touchstart', playOnInteraction, { once: true });
-        window.addEventListener('scroll', playOnInteraction, { once: true });
+      heroVideo.play().catch(() => {});
+
+      // Fallback: Start bei erster Interaktion (falls Autoplay strikt blockiert ist)
+      const playOnFirstTouch = () => {
+        tryPlayHero();
+        window.removeEventListener('click', playOnFirstTouch);
+        window.removeEventListener('touchstart', playOnFirstTouch);
+        window.removeEventListener('scroll', playOnFirstTouch);
+      };
+      window.addEventListener('click', playOnFirstTouch, { once: true });
+      window.addEventListener('touchstart', playOnFirstTouch, { once: true });
+      window.addEventListener('scroll', playOnFirstTouch, { once: true });
+    }
+
+    // ================= REAKTIVIERUNG BEIM ENTSPERREN / TAB-WECHSEL (PAGE VISIBILITY API) =================
+    // Verhindert, dass das Video nach dem Entsperren des Handys oder Tab-Wechsel als Standbild einfriert!
+    function resumeActiveVideos() {
+      // 1. Hero-Video immer wieder fortsetzen
+      tryPlayHero();
+
+      // 2. Szenen-Videos reaktivieren, falls ihre Sektion gerade aktiv im Viewport läuft
+      document.querySelectorAll('.media-container.playing-video video').forEach(v => {
+        if (v.paused) {
+          v.play().catch(() => {});
+        }
       });
     }
+
+    // Erkennt das Entsperren des Smartphone-Bildschirms sowie Tab-Wechsel
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') {
+        resumeActiveVideos();
+      }
+    });
+
+    // Absicherung bei Fokus-Rückkehr (Chrome / Safari App-Wechsel)
+    window.addEventListener('focus', resumeActiveVideos);
+    window.addEventListener('pageshow', () => {
+      resumeActiveVideos();
+    });
+
+    // Mobile-Zusatzabsicherung: Falls der Energiesparmodus Autoplay nach dem Entsperren kurz verzögert,
+    // reaktiviert die allererste Berührung das Video sofort.
+    ['touchstart', 'touchend', 'click', 'scroll'].forEach(evt => {
+      window.addEventListener(evt, () => {
+        if (heroVideo && heroVideo.paused && window.scrollY < window.innerHeight) {
+          heroVideo.play().catch(() => {});
+        }
+      }, { passive: true });
+    });
   });
 </script>
 
@@ -822,7 +866,7 @@
         <!-- Video links (4 Cols) – Schmal & dezent abgedunkelt, lenkt nicht ab -->
         <div class="lg:col-span-4 media-container media-fly-from-left h-full min-h-[260px] sm:min-h-[300px] lg:min-h-full animated" data-start="0" data-end="9.5">
           <img src="still_marathon.jpg" alt="Marathon Läufer an der Spitze" class="still-image absolute inset-0 w-full h-full object-cover object-center">
-          <video src="hero.mp4" muted="" playsinline="" preload="none" class="scene-video absolute inset-0 w-full h-full object-cover object-center"></video>
+          <video src="marathon.mp4" muted playsinline preload="none" loop class="scene-video absolute inset-0 w-full h-full object-cover object-center"></video>
           <!-- Dezent abgedunkelter Look -->
           <div class="absolute inset-0 bg-black/25 pointer-events-none z-12"></div>
           <!-- Sanfter Übergang in den Banner -->
@@ -954,7 +998,7 @@
         <!-- Video rechts (4 Cols) – Schmal & dezent abgedunkelt -->
         <div class="lg:col-span-4 order-1 lg:order-2 media-container media-fly-from-right h-full min-h-[260px] sm:min-h-[300px] lg:min-h-full animated" data-start="10" data-end="19.5">
           <img src="still_cycling.jpg" alt="Rennradfahrer Stadt-Marathon in Paris mit Eiffelturm" class="still-image absolute inset-0 w-full h-full object-cover object-center">
-          <video src="hero.mp4" muted="" playsinline="" preload="none" class="scene-video absolute inset-0 w-full h-full object-cover object-center"></video>
+          <video src="cycling.mp4" muted playsinline preload="none" loop class="scene-video absolute inset-0 w-full h-full object-cover object-center"></video>
           <!-- Dezent abgedunkelter Look -->
           <div class="absolute inset-0 bg-black/25 pointer-events-none z-12"></div>
           <!-- Sanfter Übergang in den Banner -->
@@ -975,7 +1019,7 @@
         <!-- Video links (4 Cols) – Schmal & dezent abgedunkelt -->
         <div class="lg:col-span-4 media-container media-fly-from-left h-full min-h-[260px] sm:min-h-[300px] lg:min-h-full animated" data-start="20" data-end="29.5">
           <img src="still_hyrox.jpg" alt="HYROX Functional Fitness Arena Sled Push" class="still-image absolute inset-0 w-full h-full object-cover object-center">
-          <video src="hero.mp4" muted="" playsinline="" preload="none" class="scene-video absolute inset-0 w-full h-full object-cover object-center"></video>
+          <video src="hyrox.mp4" muted playsinline preload="none" loop class="scene-video absolute inset-0 w-full h-full object-cover object-center"></video>
           <!-- Dezent abgedunkelter Look -->
           <div class="absolute inset-0 bg-black/25 pointer-events-none z-12"></div>
           <!-- Sanfter Übergang in den Banner -->
@@ -1614,11 +1658,15 @@
       const mediaContainers = document.querySelectorAll('.media-container');
 
       // WICHTIG: Lazy-Loading für untere Videoszenen.
-      // Verhindert, dass beim Seitenstart 5 Videos gleichzeitig 125 MB über die Leitung saugen,
-      // wodurch das obere Hero-Video nicht mehr ruckelt oder hängen bleibt!
+      // Verhindert Bandbreitenkonflikte, damit das obere Hero-Video 100% Bandbreite hat
+      // und ab der ersten Sekunde absolut verzögerungsfrei & flüssig durchläuft!
       const mediaLazyObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
+            const isMulti = entry.target.closest('#multi-sport') !== null;
+            // Mobil-Schutz: Erste 3 Sportarten bleiben auf Handys reine Standbilder (spart Daten & Akku)
+            if (isMobileDevice() && !isMulti) return;
+
             const video = entry.target.querySelector('video');
             if (video && video.preload !== 'auto') {
               video.preload = 'auto';
@@ -1627,7 +1675,7 @@
           }
         });
       }, {
-        rootMargin: '600px 0px 600px 0px'
+        rootMargin: '120px 0px 120px 0px'
       });
       mediaContainers.forEach(c => mediaLazyObserver.observe(c));
 
@@ -1637,30 +1685,11 @@
         const isMultiSport = container.closest('#multi-sport') !== null;
         const isMarathon = container.closest('#marathon') !== null;
         const targetPlaybackRate = isMarathon ? 1.0 : 0.85;
-        const startTime = parseFloat(container.dataset.start || '0');
-        const endTime = parseFloat(container.dataset.end || '9.5');
         let startTimeout = null;
 
-        if (isMultiSport) {
+        if (video) {
           video.loop = true;
-          video.playbackRate = 0.85;
-        } else {
-          video.addEventListener('loadedmetadata', () => {
-            if (!isMobileDevice()) {
-              video.currentTime = startTime;
-              video.playbackRate = targetPlaybackRate;
-            }
-          });
-
-          video.addEventListener('timeupdate', () => {
-            if (!isMobileDevice()) {
-              if (video.currentTime >= endTime || video.currentTime < startTime) {
-                video.currentTime = startTime;
-                video.playbackRate = targetPlaybackRate;
-                video.play().catch(() => {});
-              }
-            }
-          });
+          video.playbackRate = targetPlaybackRate;
         }
 
         const videoObserver = new IntersectionObserver((entries) => {
@@ -1669,7 +1698,7 @@
               // Mobil-Schutz: Erste 3 Sportarten bleiben auf Handys reines Standbild
               if (isMobileDevice() && !isMultiSport) {
                 container.classList.remove('playing-video');
-                video.pause();
+                if (video) video.pause();
                 return;
               }
 
@@ -1682,28 +1711,22 @@
               }
 
               startTimeout = setTimeout(() => {
-                if (!isMultiSport) {
-                  if (Math.abs(video.currentTime - startTime) > (endTime - startTime)) {
-                    video.currentTime = startTime;
-                  }
+                if (video) {
                   video.playbackRate = targetPlaybackRate;
-                } else {
-                  video.playbackRate = 0.85;
-                }
-
-                const playPromise = video.play();
-                if (playPromise !== undefined) {
-                  playPromise.then(() => {
-                    // Sofort klarer Übergang ohne Unschärfe/Skalierungsartefakte
-                    container.classList.add('playing-video');
-                    if (badgeText) badgeText.textContent = 'Live Scene Active';
-                  }).catch(() => {});
+                  const playPromise = video.play();
+                  if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                      // Sofort klarer Übergang ohne Unschärfe/Skalierungsartefakte
+                      container.classList.add('playing-video');
+                      if (badgeText) badgeText.textContent = 'Live Scene Active';
+                    }).catch(() => {});
+                  }
                 }
               }, delay);
             } else {
               clearTimeout(startTimeout);
               container.classList.remove('playing-video');
-              video.pause();
+              if (video) video.pause();
               if (badgeText) badgeText.textContent = 'Standbild • Video bereit';
             }
           });
