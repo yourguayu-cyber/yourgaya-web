@@ -676,7 +676,7 @@
         </a>
         <a href="#graph-section" class="nav-item text-gray-200 hover:text-gayaGoldBright transition pb-1 flex items-center gap-1.5">
           <span class="w-1.5 h-1.5 rounded-full bg-gayaGold animate-pulse"></span>
-          PHYSIOLOGIE
+          <span data-i18n="nav.physio">PHYSIOLOGIE</span>
         </a>
         <a href="#multi-sport" class="nav-item text-gray-200 hover:text-white transition pb-1">
           ABOUT
@@ -685,14 +685,36 @@
           CONTACT
         </a>
         <a href="#waitlist" class="bg-[#bbf46d] hover:bg-[#aef058] text-[#051a11] font-display font-bold text-xs px-5 py-2.5 rounded-lg tracking-[0.14em] transition shadow-md shadow-lime-500/10 ml-2">
-          EARLY ACCESS
+          <span data-i18n="nav.earlyAccess">EARLY ACCESS</span>
         </a>
+
+        <!-- Clean Language Switcher (Desktop) -->
+        <button id="lang-switch-desktop" onclick="toggleLanguage()" aria-label="Switch Language / Sprache wechseln" class="ml-2 flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-white/20 hover:border-gayaAccent/60 bg-white/5 hover:bg-gayaAccent/10 text-white transition group cursor-pointer shadow-sm">
+          <svg class="w-4 h-4 text-gayaAccent group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+          <span class="font-display text-[11px] font-bold tracking-wider uppercase">
+            <span class="lang-label-de text-gayaAccent">DE</span>
+            <span class="text-white/30 mx-0.5">/</span>
+            <span class="lang-label-en text-white/50 group-hover:text-white">EN</span>
+          </span>
+        </button>
       </nav>
 
       <!-- Mobile Button & Hamburger Toggle -->
       <div class="flex md:hidden items-center gap-2">
+        <!-- Clean Mobile Language Toggle -->
+        <button id="lang-switch-mobile" onclick="toggleLanguage()" aria-label="Switch Language / Sprache wechseln" class="flex items-center gap-1 px-2 py-1.5 rounded-lg border border-white/15 bg-white/5 text-white hover:text-gayaAccent transition cursor-pointer">
+          <svg class="w-3.5 h-3.5 text-gayaAccent" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+          <span class="lang-mobile-indicator font-display text-[10.5px] font-bold tracking-wider text-gayaAccent">EN</span>
+        </button>
+
         <a href="#waitlist" class="bg-[#bbf46d] hover:bg-[#aef058] text-[#051a11] font-display font-bold text-[11px] px-3 py-1.5 rounded-lg tracking-[0.12em] transition">
-          EARLY ACCESS
+          <span data-i18n="nav.earlyAccess">EARLY ACCESS</span>
         </a>
         <button id="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Menü umschalten" class="text-white hover:text-gayaAccent p-1.5 rounded-lg border border-white/10 hover:border-white/25 bg-white/5 transition flex items-center justify-center cursor-pointer">
           <svg id="hamburger-icon" class="w-5 h-5 text-gray-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -719,7 +741,7 @@
         <a href="#graph-section" onclick="closeMobileMenu()" class="mobile-nav-link text-gray-200 hover:text-gayaGoldBright py-2.5 border-b border-white/5 transition flex items-center justify-between">
           <span class="flex items-center gap-2">
             <span class="w-2 h-2 rounded-full bg-gayaGold animate-pulse"></span>
-            PHYSIOLOGIE
+            <span data-i18n="nav.physio">PHYSIOLOGIE</span>
           </span>
           <span class="text-[10px] text-gayaGold">03</span>
         </a>
@@ -733,8 +755,18 @@
         </a>
         <div class="pt-2">
           <a href="#waitlist" onclick="closeMobileMenu()" class="block text-center bg-[#bbf46d] hover:bg-[#aef058] text-[#051a11] font-display font-bold text-xs py-3 rounded-lg tracking-[0.16em] transition shadow-lg shadow-lime-500/20">
-            EARLY ACCESS SICHERN
+            <span data-i18n="nav.earlyAccessDrawer">EARLY ACCESS SICHERN</span>
           </a>
+        </div>
+
+        <!-- Clean Mobile Drawer Language Row -->
+        <div class="pt-3 border-t border-white/10 flex items-center justify-between">
+          <span class="text-[11px] text-gray-400 font-display uppercase tracking-widest" data-i18n="nav.langLabel">Sprache / Language</span>
+          <button onclick="toggleLanguage()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/20 bg-white/5 text-white text-xs font-display font-bold cursor-pointer">
+            <span class="lang-label-de text-gayaAccent">DE</span>
+            <span class="text-white/30 mx-0.5">/</span>
+            <span class="lang-label-en text-white/50">EN</span>
+          </button>
         </div>
       </div>
     </div>
@@ -752,27 +784,27 @@
       <div id="hero-header-content" class="max-w-xl transition-all duration-300">
         <p class="font-display text-[10.5px] sm:text-xs md:text-sm tracking-[0.22em] text-gray-300 uppercase mb-2.5 sm:mb-4 flex items-center gap-2">
           <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-gayaAccent animate-ping"></span>
-          YOURGAYA – PRE-LAUNCH 2026
+          <span data-i18n="hero.badge">YOURGAYA – PRE-LAUNCH 2026</span>
         </p>
-        <h1 id="hero-title" class="font-display font-extrabold text-2xl sm:text-5xl lg:text-6xl leading-[1.08] tracking-wide uppercase text-white mb-3.5 sm:mb-6">
+        <h1 id="hero-title" data-i18n="hero.title" class="font-display font-extrabold text-2xl sm:text-5xl lg:text-6xl leading-[1.08] tracking-wide uppercase text-white mb-3.5 sm:mb-6">
           FUEL YOUR<br>
           <span class="text-[#28a362]">NEXT</span> CHAPTER.
         </h1>
-        <p id="hero-subtitle" class="text-xs sm:text-lg md:text-xl font-medium text-white mb-3 sm:mb-3 leading-snug sm:leading-normal">
+        <p id="hero-subtitle" data-i18n="hero.subtitle" class="text-xs sm:text-lg md:text-xl font-medium text-white mb-3 sm:mb-3 leading-snug sm:leading-normal">
           Das neu optimierte Energy Gel der nächsten Generation.<br>
           Spürbar schneller im Ziel. Ohne Leistungseinbruch.<br>
           Ohne Magenstress.
         </p>
-        <p id="hero-note" class="text-[10px] sm:text-sm md:text-[14.5px] text-gray-300/80 sm:text-gray-300 leading-snug sm:leading-relaxed mb-4 sm:mb-7 max-w-lg">
+        <p id="hero-note" data-i18n="hero.note" class="text-[10px] sm:text-sm md:text-[14.5px] text-gray-300/80 sm:text-gray-300 leading-snug sm:leading-relaxed mb-4 sm:mb-7 max-w-lg">
           Hinweis: Zum Schutz unserer Entwicklung veröffentlichen wir die genaue Zusammensetzung erst zum offiziellen Produktstart.
         </p>
         <div id="hero-cta-buttons" class="flex flex-wrap items-center gap-2.5 sm:gap-4">
           <a href="#marathon" class="inline-flex items-center space-x-2 sm:space-x-3 border border-white/50 hover:border-gayaAccent hover:bg-gayaAccent hover:text-gayaDark text-white font-display text-[10px] sm:text-xs font-semibold tracking-[0.16em] sm:tracking-[0.2em] uppercase px-4 sm:px-7 py-2.5 sm:py-4 transition duration-300">
-            <span>DISCOVER YOURGAYA</span>
+            <span data-i18n="hero.btnDiscover">DISCOVER YOURGAYA</span>
             <span>→</span>
           </a>
           <a href="#graph-section" class="inline-flex items-center space-x-1.5 sm:space-x-2 bg-gayaPanel/80 border border-gayaGold/40 hover:border-gayaGold hover:text-gayaGoldBright text-gray-200 font-display text-[10px] sm:text-xs font-medium tracking-[0.14em] sm:tracking-[0.16em] uppercase px-3.5 sm:px-5 py-2.5 sm:py-4 transition backdrop-blur-sm">
-            <span>ZUR PHYSIOLOGIE</span>
+            <span data-i18n="hero.btnPhysio">ZUR PHYSIOLOGIE</span>
             <span>↓</span>
           </a>
         </div>
@@ -781,7 +813,7 @@
 
     <!-- Scroll Down Indicator -->
     <a href="#marathon" class="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center text-gray-300 hover:text-white transition group">
-      <span class="font-display text-[9px] sm:text-[10px] tracking-[0.25em] uppercase mb-1.5 sm:mb-2">SCROLL DOWN</span>
+      <span data-i18n="hero.scrollDown" class="font-display text-[9px] sm:text-[10px] tracking-[0.25em] uppercase mb-1.5 sm:mb-2">SCROLL DOWN</span>
       <svg class="w-4 h-4 sm:w-5 sm:h-5 animate-bounce text-gayaAccent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
       </svg>
@@ -924,35 +956,35 @@
               </div>
             </div>
 
-            <p class="text-gray-100 text-sm sm:text-[15px] leading-relaxed mb-4 font-normal">
+            <p data-i18n="marathon.desc" class="text-gray-100 text-sm sm:text-[15px] leading-relaxed mb-4 font-normal">
               Lange Distanzen verlangen mehr als körperliche Ausdauer. Mentale Klarheit und eine zuverlässige, magenverträgliche Energieversorgung spielen eine rennentscheidende Rolle.
             </p>
 
             <div class="border-t border-white/10 pt-3 mb-3">
               <h3 class="font-display font-bold text-xs sm:text-[12px] tracking-[0.2em] uppercase text-gray-300 mb-2 flex items-center gap-2">
                 <span class="w-1.5 h-1.5 rounded-full bg-red-400"></span>
-                DIE HERAUSFORDERUNG
+                <span data-i18n="marathon.challengeTitle">DIE HERAUSFORDERUNG</span>
               </h3>
               <ul class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs sm:text-[12.5px] text-gray-300">
                 <li class="flex items-start gap-1.5 bg-black/30 p-2.5 rounded border border-white/5">
                   <span class="text-red-400 font-bold">•</span>
-                  <span>Magen-Darm-Krämpfe &amp; Völlegefühl während langer Läufe.</span>
+                  <span data-i18n="marathon.c1">Magen-Darm-Krämpfe &amp; Völlegefühl während langer Läufe.</span>
                 </li>
                 <li class="flex items-start gap-1.5 bg-black/30 p-2.5 rounded border border-white/5">
                   <span class="text-red-400 font-bold">•</span>
-                  <span>Nachlassender Fokus &amp; Konzentration im Renntempo.</span>
+                  <span data-i18n="marathon.c2">Nachlassender Fokus &amp; Konzentration im Renntempo.</span>
                 </li>
                 <li class="flex items-start gap-1.5 bg-black/30 p-2.5 rounded border border-white/5">
                   <span class="text-red-400 font-bold">•</span>
-                  <span>Typischer Pace-Einbruch im letzten Rennviertel.</span>
+                  <span data-i18n="marathon.c3">Typischer Pace-Einbruch im letzten Rennviertel.</span>
                 </li>
               </ul>
             </div>
 
             <!-- Die YourGaya Vision – Hebt sich leuchtend ab -->
             <div class="bg-gradient-to-r from-gayaAccent/15 via-gayaGreen/25 to-transparent border-l-2 border-gayaAccent pl-4 pr-3 py-2.5 my-2.5 rounded-r-lg">
-              <h3 class="font-display font-bold text-xs tracking-[0.2em] uppercase text-gayaAccent mb-1">DIE YOURGAYA VISION</h3>
-              <p class="text-xs sm:text-[13.5px] text-white font-medium leading-relaxed">Ein revolutionärer Energie-Ansatz für ambitionierte Läufer. Cleane, hochgradig bioverfügbare Rezeptur ohne Magenstress, für konstante Energie und glasklaren Fokus bis über die Ziellinie.</p>
+              <h3 data-i18n="marathon.visionTitle" class="font-display font-bold text-xs tracking-[0.2em] uppercase text-gayaAccent mb-1">DIE YOURGAYA VISION</h3>
+              <p data-i18n="marathon.visionDesc" class="text-xs sm:text-[13.5px] text-white font-medium leading-relaxed">Ein revolutionärer Energie-Ansatz für ambitionierte Läufer. Cleane, hochgradig bioverfügbare Rezeptur ohne Magenstress, für konstante Energie und glasklaren Fokus bis über die Ziellinie.</p>
             </div>
 
             <p class="font-display font-bold text-xs sm:text-[13px] tracking-[0.22em] uppercase text-gayaAccent flex items-center gap-2 mt-2">
@@ -989,35 +1021,35 @@
               </div>
             </div>
 
-            <p class="text-gray-100 text-sm sm:text-[15px] leading-relaxed mb-4 font-normal">
+            <p data-i18n="cycling.desc" class="text-gray-100 text-sm sm:text-[15px] leading-relaxed mb-4 font-normal">
               Stunden im Sattel, endlose Anstiege und extreme Belastungswechsel stellen höchste Anforderungen an den Magen und die gleichmäßige Glykogenzufuhr.
             </p>
 
             <div class="border-t border-white/10 pt-3 mb-3">
               <h3 class="font-display font-bold text-xs sm:text-[12px] tracking-[0.2em] uppercase text-gray-300 mb-2 flex items-center gap-2">
                 <span class="w-1.5 h-1.5 rounded-full bg-red-400"></span>
-                DIE HERAUSFORDERUNG
+                <span data-i18n="cycling.challengeTitle">DIE HERAUSFORDERUNG</span>
               </h3>
               <ul class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs sm:text-[12.5px] text-gray-300">
                 <li class="flex items-start gap-1.5 bg-black/30 p-2.5 rounded border border-white/5">
                   <span class="text-red-400 font-bold">•</span>
-                  <span>Magen-Darm-Beschwerden nach mehreren Stunden Belastung.</span>
+                  <span data-i18n="cycling.c1">Magen-Darm-Beschwerden nach mehreren Stunden Belastung.</span>
                 </li>
                 <li class="flex items-start gap-1.5 bg-black/30 p-2.5 rounded border border-white/5">
                   <span class="text-red-400 font-bold">•</span>
-                  <span>Klebrige Sportgels mit künstlichen Spitzen und Crashs.</span>
+                  <span data-i18n="cycling.c2">Klebrige Sportgels mit künstlichen Spitzen und Crashs.</span>
                 </li>
                 <li class="flex items-start gap-1.5 bg-black/30 p-2.5 rounded border border-white/5">
                   <span class="text-red-400 font-bold">•</span>
-                  <span class="">Nachlassende Leistung an den entscheidenden Bergen.</span>
+                  <span data-i18n="cycling.c3" class="">Nachlassende Leistung an den entscheidenden Bergen.</span>
                 </li>
               </ul>
             </div>
 
             <!-- Die YourGaya Vision – Hebt sich leuchtend ab -->
             <div class="bg-gradient-to-r from-gayaAccent/15 via-gayaGreen/25 to-transparent border-l-2 border-gayaAccent pl-4 pr-3 py-2.5 my-2.5 rounded-r-lg">
-              <h3 class="font-display font-bold text-xs tracking-[0.2em] uppercase text-gayaAccent mb-1">DIE YOURGAYA VISION</h3>
-              <p class="text-xs sm:text-[13.5px] text-white font-medium leading-relaxed">YourGaya verbindet einen hochfunktionellen Inhaltstoff mit einem Dual-Carb-Verhältnis  für absolut stabilen Magenkomfort und konstante Power über lange Strecken.</p>
+              <h3 data-i18n="cycling.visionTitle" class="font-display font-bold text-xs tracking-[0.2em] uppercase text-gayaAccent mb-1">DIE YOURGAYA VISION</h3>
+              <p data-i18n="cycling.visionDesc" class="text-xs sm:text-[13.5px] text-white font-medium leading-relaxed">YourGaya verbindet einen hochfunktionellen Inhaltstoff mit einem Dual-Carb-Verhältnis für absolut stabilen Magenkomfort und konstante Power über lange Strecken.</p>
             </div>
 
             <p class="font-display font-bold text-xs sm:text-[13px] tracking-[0.22em] uppercase text-gayaAccent flex items-center gap-2 mt-2">
@@ -1076,35 +1108,35 @@
               </div>
             </div>
 
-            <p class="text-gray-100 text-sm sm:text-[15px] leading-relaxed mb-4 font-normal">
+            <p data-i18n="hyrox.desc" class="text-gray-100 text-sm sm:text-[15px] leading-relaxed mb-4 font-normal">
               Intensive Belastungswechsel zwischen Running und Workout-Stationen treiben den Puls ans Limit. HYROX verlangt pure Explosivität und unzerbrechliche mentale Härte.
             </p>
 
             <div class="border-t border-white/10 pt-3 mb-3">
               <h3 class="font-display font-bold text-xs sm:text-[12px] tracking-[0.2em] uppercase text-gray-300 mb-2 flex items-center gap-2">
                 <span class="w-1.5 h-1.5 rounded-full bg-red-400"></span>
-                DIE HERAUSFORDERUNG
+                <span data-i18n="hyrox.challengeTitle">DIE HERAUSFORDERUNG</span>
               </h3>
               <ul class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs sm:text-[12.5px] text-gray-300">
                 <li class="flex items-start gap-1.5 bg-black/30 p-2.5 rounded border border-white/5">
                   <span class="text-red-400 font-bold">•</span>
-                  <span>Extrem hohe Laktatspitzen zwischen Sled und Burpees.</span>
+                  <span data-i18n="hyrox.c1">Extrem hohe Laktatspitzen zwischen Sled und Burpees.</span>
                 </li>
                 <li class="flex items-start gap-1.5 bg-black/30 p-2.5 rounded border border-white/5">
                   <span class="text-red-400 font-bold">•</span>
-                  <span>Kreislauf-Stress &amp; Zittern durch synthetisches Koffein.</span>
+                  <span data-i18n="hyrox.c2">Kreislauf-Stress &amp; Zittern durch synthetisches Koffein.</span>
                 </li>
                 <li class="flex items-start gap-1.5 bg-black/30 p-2.5 rounded border border-white/5">
                   <span class="text-red-400 font-bold">•</span>
-                  <span>Plötzlicher Leistungsabfall bei den Wall Balls am Schluss.</span>
+                  <span data-i18n="hyrox.c3">Plötzlicher Leistungsabfall bei den Wall Balls am Schluss.</span>
                 </li>
               </ul>
             </div>
 
             <!-- Die YourGaya Vision – Hebt sich leuchtend ab -->
             <div class="bg-gradient-to-r from-gayaAccent/15 via-gayaGreen/25 to-transparent border-l-2 border-gayaAccent pl-4 pr-3 py-2.5 my-2.5 rounded-r-lg">
-              <h3 class="font-display font-bold text-xs tracking-[0.2em] uppercase text-gayaAccent mb-1">DIE YOURGAYA VISION</h3>
-              <p class="text-xs sm:text-[13.5px] text-white font-medium leading-relaxed">
+              <h3 data-i18n="hyrox.visionTitle" class="font-display font-bold text-xs tracking-[0.2em] uppercase text-gayaAccent mb-1">DIE YOURGAYA VISION</h3>
+              <p data-i18n="hyrox.visionDesc" class="text-xs sm:text-[13.5px] text-white font-medium leading-relaxed">
                 Ein innovativer Energie-Komplex für maximale Wettkampf-Intensität. Schützt den Puls vor stressigen Ausschlägen, liefert kontinuierliche Power und eliminiert den Erschöpfungsabsturz.
               </p>
             </div>
@@ -1142,7 +1174,7 @@
               </div>
             </div>
 
-            <p class="text-gray-100 text-xs sm:text-sm leading-relaxed mb-3 font-normal">
+            <p data-i18n="multisport.desc" class="text-gray-100 text-xs sm:text-sm leading-relaxed mb-3 font-normal">
               Sport ist vielseitig – vom Center Court über Trail-Berge bis zum Fußballrasen. YourGaya wurde für Athleten entwickelt, die kompromisslose Performance erwarten.
             </p>
 
@@ -1178,7 +1210,7 @@
                   <circle cx="12" cy="12" r="9"></circle>
                   <polygon points="12,7 16,10 14.5,15 9.5,15 8,10" stroke-linejoin="round"></polygon>
                 </svg>
-                <span class="font-display text-[9px] tracking-[0.16em] uppercase text-gray-300 group-hover:text-white transition font-medium">TEAMSPORT</span>
+                <span data-i18n="multisport.teamSport" class="font-display text-[9px] tracking-[0.16em] uppercase text-gray-300 group-hover:text-white transition font-medium">TEAMSPORT</span>
               </div>
               <div class="flex flex-col items-center group cursor-pointer transition hover:scale-105 p-1 rounded hover:bg-white/5">
                 <svg class="w-5 h-5 text-gray-300 group-hover:text-gayaAccent transition mb-1" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
@@ -1191,8 +1223,8 @@
 
             <!-- Die YourGaya Vision – Hebt sich leuchtend ab -->
             <div class="bg-gradient-to-r from-gayaAccent/15 via-gayaGreen/25 to-transparent border-l-2 border-gayaAccent pl-4 pr-3 py-2.5 my-2.5 rounded-r-lg">
-              <h3 class="font-display font-bold text-xs tracking-[0.2em] uppercase text-gayaAccent mb-1">DIE YOURGAYA VISION</h3>
-              <p class="text-xs sm:text-[13.5px] text-white font-medium leading-relaxed">
+              <h3 data-i18n="multisport.visionTitle" class="font-display font-bold text-xs tracking-[0.2em] uppercase text-gayaAccent mb-1">DIE YOURGAYA VISION</h3>
+              <p data-i18n="multisport.visionDesc" class="text-xs sm:text-[13.5px] text-white font-medium leading-relaxed">
                 Ein allumfassender Energiebooster für aktive Athleten – vom intensiven Intervalltraining bis zu neuen persönlichen Bestzeiten.
               </p>
             </div>
@@ -1234,10 +1266,10 @@
     
     <!-- Kompakter Kopfbereich -->
     <div class="border-b border-[#d4af37]/15 pb-3.5 mb-5">
-      <h2 class="font-display font-bold text-lg sm:text-xl text-white tracking-wide">
+      <h2 data-i18n="graph.title" class="font-display font-bold text-lg sm:text-xl text-white tracking-wide">
         Bioverfügbare Zellenergie &amp; Kognitiver Fokus über Zeit
       </h2>
-      <p class="text-[11px] sm:text-xs text-gray-300 mt-1">
+      <p data-i18n="graph.subtitle" class="text-[11px] sm:text-xs text-gray-300 mt-1">
         Gemessen in Belastungsminuten nach Einnahme unter Wettkampf-Intensität
       </p>
     </div>
@@ -1249,7 +1281,7 @@
       <div class="chart-label transition-all duration-700 ease-out absolute z-20 pointer-events-none opacity-0 translate-y-1" style="left: 16%; top: 5%;" data-delay="800">
         <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#1a0f10]/80 border border-red-500/40 text-[9px] sm:text-[10px] font-display font-semibold text-red-300 whitespace-nowrap">
           <span class="w-1.5 h-1.5 rounded-full bg-red-400"></span>
-          <span>STANDARD-GEL: PEAK &amp; STRESS</span>
+          <span data-i18n="graph.label1">STANDARD-GEL: PEAK &amp; STRESS</span>
         </div>
       </div>
 
@@ -1257,7 +1289,7 @@
       <div class="chart-label transition-all duration-700 ease-out absolute z-20 pointer-events-none opacity-0 translate-y-1" style="left: 35%; top: 20%;" data-delay="1700">
         <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#0c2219]/85 border border-[#d4af37]/80 text-[9px] sm:text-[10px] font-display font-bold tracking-wider uppercase text-[#f3d478] whitespace-nowrap">
           <span class="w-1.5 h-1.5 rounded-full bg-[#f3d478] animate-pulse"></span>
-          <span>YOURGAYA: +60% STEADY-FLOW PLATEAU</span>
+          <span data-i18n="graph.label2">YOURGAYA: +60% STEADY-FLOW PLATEAU</span>
         </div>
       </div>
 
@@ -1265,7 +1297,7 @@
       <div class="chart-label transition-all duration-700 ease-out absolute z-20 pointer-events-none opacity-0 translate-y-1" style="left: 44%; top: 76%;" data-delay="2400">
         <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#1a0f10]/80 border border-red-500/35 text-[9px] sm:text-[10px] font-display font-medium text-red-400 whitespace-nowrap">
           <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
-          <span>Crash &amp; Speicher-Verbrauch (-25%)</span>
+          <span data-i18n="graph.label3">Crash &amp; Speicher-Verbrauch (-25%)</span>
         </div>
       </div>
 
@@ -1273,7 +1305,7 @@
       <div class="chart-label transition-all duration-700 ease-out absolute z-20 pointer-events-none opacity-0 translate-y-1" style="right: 2%; top: 43%;" data-delay="3200">
         <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#0c2219]/85 border border-[#d4af37]/50 text-[9px] sm:text-[10px] font-display font-semibold text-[#e5c875] whitespace-nowrap">
           <span class="w-1.5 h-1.5 rounded-full bg-[#e5c875]"></span>
-          <span>YourGaya: Soft Landing (auf 0%)</span>
+          <span data-i18n="graph.label4">YourGaya: Soft Landing (auf 0%)</span>
         </div>
       </div>
 
@@ -1424,10 +1456,10 @@
             <h2 class="font-display font-bold text-xl sm:text-2xl lg:text-3xl tracking-[0.12em] uppercase text-white mb-1.5">
               BE PART OF THE FIRST CHAPTER.
             </h2>
-            <p class="text-sm sm:text-base font-medium text-gray-200 mb-2">
+            <p data-i18n="waitlist.subtitle" class="text-sm sm:text-base font-medium text-gray-200 mb-2">
               Sei von Anfang an dabei.
             </p>
-            <p class="text-xs sm:text-sm text-gray-300 leading-relaxed mb-5">
+            <p data-i18n="waitlist.desc" class="text-xs sm:text-sm text-gray-300 leading-relaxed mb-5">
               Wähle deine Sportart, setze dich auf die exklusive Warteliste für den ersten Produkt-Release und erfahre als Erster von YourGaya.
             </p>
 
@@ -1436,33 +1468,33 @@
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <!-- Sportart-Auswahl -->
                 <div class="relative">
-                  <label for="sport-select" class="block font-display text-[9.5px] tracking-[0.2em] uppercase text-gayaAccent mb-1 font-semibold">
+                  <label for="sport-select" data-i18n="waitlist.sportLabel" class="block font-display text-[9.5px] tracking-[0.2em] uppercase text-gayaAccent mb-1 font-semibold">
                     Deine Hauptsportart *
                   </label>
                   <div class="relative">
                     <select id="sport-select" required="" onchange="handleSportSelectChange(this)" class="w-full bg-white/5 border border-white/20 focus:border-gayaAccent text-white text-xs px-3.5 py-3 rounded-sm outline-none transition appearance-none cursor-pointer">
-                      <option value="" disabled="" selected="" class="bg-gayaDark text-gray-400">Sportart auswählen...</option>
+                      <option value="" disabled="" selected="" class="bg-gayaDark text-gray-400" data-i18n="waitlist.sportSelectDefault">Sportart auswählen...</option>
                       <option value="Marathon &amp; Running" class="bg-gayaDark text-white">Marathon &amp; Running</option>
                       <option value="Cycling &amp; Roadbike" class="bg-gayaDark text-white">Cycling &amp; Roadbike</option>
                       <option value="HYROX &amp; Functional Fitness" class="bg-gayaDark text-white">HYROX &amp; Functional Fitness</option>
                       <option value="Triathlon &amp; Ironman" class="bg-gayaDark text-white">Triathlon &amp; Ironman</option>
                       <option value="Tennis &amp; Court Sports" class="bg-gayaDark text-white">Tennis &amp; Court Sports</option>
-                      <option value="Fußball &amp; Teamsport" class="bg-gayaDark text-white">Fußball &amp; Teamsport</option>
+                      <option value="Fußball &amp; Teamsport" class="bg-gayaDark text-white" data-i18n="waitlist.sportOptSoccer">Fußball &amp; Teamsport</option>
                       <option value="Trail Running &amp; Outdoor" class="bg-gayaDark text-white">Trail Running &amp; Outdoor</option>
-                      <option value="custom" class="bg-gayaDark text-[#bbf46d] font-semibold">+ Andere / Eigene Sportart eintragen...</option>
+                      <option value="custom" class="bg-gayaDark text-[#bbf46d] font-semibold" data-i18n="waitlist.sportOptCustom">+ Andere / Eigene Sportart eintragen...</option>
                     </select>
                     <div class="pointer-events-none absolute right-3 top-3.5 text-gray-400 text-xs">▼</div>
                   </div>
 
                   <!-- Dynamisches Eingabefeld für eigene Sportart -->
                   <div id="custom-sport-container" class="hidden mt-2.5 transition-all duration-300">
-                    <label for="custom-sport-input" class="block font-display text-[9px] tracking-[0.16em] uppercase text-gayaAccent mb-1 font-semibold">
+                    <label for="custom-sport-input" data-i18n="waitlist.customSportLabel" class="block font-display text-[9px] tracking-[0.16em] uppercase text-gayaAccent mb-1 font-semibold">
                       Deine eigene Sportart eintragen *
                     </label>
                     <input 
                       id="custom-sport-input" 
                       type="text" 
-                      placeholder="z. B. Schwimmen, Rudern, CrossFit, Basketball, Kampfsport..." 
+                      data-i18n-placeholder="waitlist.customSportPlaceholder" placeholder="z. B. Schwimmen, Rudern, CrossFit, Basketball, Kampfsport..." 
                       class="w-full bg-white/5 border border-[#bbf46d]/50 focus:border-gayaAccent text-white placeholder-gray-400 text-xs px-3.5 py-2.5 rounded-sm outline-none transition"
                     />
                   </div>
@@ -1470,10 +1502,10 @@
 
                 <!-- E-Mail-Eingabe -->
                 <div>
-                  <label for="email-input" class="block font-display text-[9.5px] tracking-[0.2em] uppercase text-gray-300 mb-1 font-semibold">
+                  <label for="email-input" data-i18n="waitlist.emailLabel" class="block font-display text-[9.5px] tracking-[0.2em] uppercase text-gray-300 mb-1 font-semibold">
                     Deine E-Mail-Adresse *
                   </label>
-                  <input id="email-input" type="email" required="" placeholder="E-Mail-Adresse eingeben" class="w-full bg-white/5 border border-white/20 focus:border-gayaAccent text-white placeholder-gray-400 text-xs px-3.5 py-3 rounded-sm outline-none transition">
+                  <input id="email-input" type="email" required="" data-i18n-placeholder="waitlist.emailPlaceholder" placeholder="E-Mail-Adresse eingeben" class="w-full bg-white/5 border border-white/20 focus:border-gayaAccent text-white placeholder-gray-400 text-xs px-3.5 py-3 rounded-sm outline-none transition">
                 </div>
               </div>
 
@@ -1482,13 +1514,13 @@
                   <span>JOIN THE WAITLIST</span>
                   <span class="group-hover:translate-x-1 transition">→</span>
                 </button>
-                <span class="text-[11px] text-gray-400 tracking-wide">
+                <span data-i18n="waitlist.badge" class="text-[11px] text-gray-400 tracking-wide">
                   Limited First Release – Exklusiver Vorabzugang.
                 </span>
               </div>
 
               <!-- Bestätigungsmeldung -->
-              <div id="waitlist-success" class="hidden p-3 bg-gayaGreen/80 border border-gayaAccent/40 rounded text-xs text-gayaAccent font-medium">
+              <div id="waitlist-success" data-i18n="waitlist.success" class="hidden p-3 bg-gayaGreen/80 border border-gayaAccent/40 rounded text-xs text-gayaAccent font-medium">
                 ✓ Perfekt! Du stehst mit deiner Sportart auf der Liste für den ersten YourGaya Produkt-Release.
               </div>
             </form>
@@ -1518,7 +1550,7 @@
             <h3 class="font-display font-bold text-sm sm:text-base tracking-[0.16em] uppercase text-white mb-1.5">
               INVESTORS &amp; STRATEGIC PARTNERS
             </h3>
-            <p class="text-xs sm:text-sm text-gray-300 leading-relaxed font-normal">
+            <p data-i18n="investors.desc" class="text-xs sm:text-sm text-gray-300 leading-relaxed font-normal">
               YourGaya befindet sich offiziell in der vorbereitenden Pre-Launch- und Entwicklungsphase. Wir sind offen für strategische Partnerschaften und ausgewählte Investoren, die unsere Vision unterstützen wollen.
             </p>
           </div>
@@ -1539,7 +1571,7 @@
           </div>
 
           <a href="#investors" onclick="openModal('modal-kontakt'); return false;" class="inline-flex items-center gap-2 border border-white/30 hover:border-gayaAccent hover:bg-gayaAccent hover:text-gayaDark text-white font-display text-xs font-semibold tracking-[0.16em] uppercase px-4 py-2.5 rounded transition shrink-0 cursor-pointer">
-            <span>GET IN TOUCH</span>
+            <span data-i18n="investors.btn">GET IN TOUCH</span>
             <span>→</span>
           </a>
         </div>
@@ -1558,9 +1590,9 @@
       </div>
 
       <div class="flex flex-wrap items-center gap-6 text-xs text-gray-400">
-        <button onclick="openModal('modal-impressum')" class="hover:text-gayaAccent transition cursor-pointer">Impressum</button>
-        <button onclick="openModal('modal-datenschutz')" class="hover:text-gayaAccent transition cursor-pointer">Datenschutz</button>
-        <button onclick="openModal('modal-kontakt')" class="hover:text-gayaAccent transition cursor-pointer">Kontakt</button>
+        <button onclick="openModal('modal-impressum')" class="hover:text-gayaAccent transition cursor-pointer" data-i18n="footer.impressum">Impressum</button>
+        <button onclick="openModal('modal-datenschutz')" class="hover:text-gayaAccent transition cursor-pointer" data-i18n="footer.datenschutz">Datenschutz</button>
+        <button onclick="openModal('modal-kontakt')" class="hover:text-gayaAccent transition cursor-pointer" data-i18n="footer.kontakt">Kontakt</button>
         <span class="text-gray-500">© YOURGAYA 2026</span>
       </div>
     </div>
@@ -1570,7 +1602,7 @@
   <div id="modal-impressum" class="fixed inset-0 z-50 items-center justify-center bg-black/80 backdrop-blur-sm p-4 hidden">
     <div class="bg-gayaPanel border border-white/20 max-w-2xl w-full p-8 rounded-sm relative max-h-[85vh] overflow-y-auto text-sm text-gray-300 leading-relaxed">
       <button onclick="closeModal('modal-impressum')" class="absolute top-5 right-5 text-gray-400 hover:text-white text-xl font-bold cursor-pointer">✕</button>
-      <h2 class="font-display font-bold text-xl tracking-[0.18em] uppercase text-white mb-6 border-b border-white/15 pb-3">
+      <h2 data-i18n="modal.impressumTitle" class="font-display font-bold text-xl tracking-[0.18em] uppercase text-white mb-6 border-b border-white/15 pb-3">
         Impressum
       </h2>
       <p class="mb-4">
@@ -1599,7 +1631,7 @@
   <div id="modal-datenschutz" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-sm p-4">
     <div class="bg-gayaPanel border border-white/20 max-w-2xl w-full p-8 rounded-sm relative max-h-[85vh] overflow-y-auto text-sm text-gray-300 leading-relaxed space-y-4">
       <button onclick="closeModal('modal-datenschutz')" class="absolute top-5 right-5 text-gray-400 hover:text-white text-xl font-bold cursor-pointer">✕</button>
-      <h2 class="font-display font-bold text-xl tracking-[0.18em] uppercase text-white mb-4 border-b border-white/15 pb-3">
+      <h2 data-i18n="modal.datenschutzTitle" class="font-display font-bold text-xl tracking-[0.18em] uppercase text-white mb-4 border-b border-white/15 pb-3">
         Datenschutzerklärung
       </h2>
       <p>
@@ -1625,22 +1657,22 @@
   <div id="modal-kontakt" class="fixed inset-0 z-50 items-center justify-center bg-black/80 backdrop-blur-sm p-4 hidden">
     <div class="bg-gayaPanel border border-white/20 max-w-xl w-full p-8 rounded-sm relative text-sm text-gray-300 leading-relaxed">
       <button onclick="closeModal('modal-kontakt')" class="absolute top-5 right-5 text-gray-400 hover:text-white text-xl font-bold cursor-pointer">✕</button>
-      <h2 class="font-display font-bold text-xl tracking-[0.18em] uppercase text-white mb-2">
+      <h2 data-i18n="modal.kontaktTitle" class="font-display font-bold text-xl tracking-[0.18em] uppercase text-white mb-2">
         Kontakt
       </h2>
-      <p class="text-xs text-gray-400 mb-6 border-b border-white/15 pb-4">
+      <p data-i18n="modal.kontaktSubtitle" class="text-xs text-gray-400 mb-6 border-b border-white/15 pb-4">
         Für allgemeine Fragen, Sportler-Anfragen oder strategische Partnerschaften.
       </p>
 
       <div class="space-y-3 mb-6 bg-gayaDark/60 p-4 border border-white/10 rounded-sm">
-        <p><strong class="text-white">Ansprechpartner:</strong> Leonid Zokhin</p>
-        <p><strong class="text-white">E-Mail (Direkt):</strong> <a href="mailto:leonid@yourgaya.de" class="text-gayaAccent hover:underline">leonid@yourgaya.de</a></p>
-        <p><strong class="text-white">E-Mail (Allgemein):</strong> <a href="mailto:contact@yourgaya.de" class="text-gayaAccent hover:underline">contact@yourgaya.de</a></p>
+        <p><strong data-i18n="modal.contactPerson" class="text-white">Ansprechpartner:</strong> Leonid Zokhin</p>
+        <p><strong data-i18n="modal.emailDirect" class="text-white">E-Mail (Direkt):</strong> <a href="mailto:leonid@yourgaya.de" class="text-gayaAccent hover:underline">leonid@yourgaya.de</a></p>
+        <p><strong data-i18n="modal.emailGeneral" class="text-white">E-Mail (Allgemein):</strong> <a href="mailto:contact@yourgaya.de" class="text-gayaAccent hover:underline">contact@yourgaya.de</a></p>
         <p class=""></p>
       </div>
 
       <a href="mailto:leonid@yourgaya.de?subject=Anfrage%20YourGaya" class="w-full bg-gayaAccent hover:bg-lime-300 text-gayaDark font-display font-bold text-xs tracking-[0.2em] uppercase py-4 rounded-sm transition flex items-center justify-center gap-2">
-        <span>E-MAIL SCHREIBEN</span>
+        <span data-i18n="modal.btnSendEmail">E-MAIL SCHREIBEN</span>
         <span>→</span>
       </a>
     </div>
@@ -2084,5 +2116,243 @@
     })();
 </script>
 
+
+
+  <!-- ================= INTERNATIONALIZATION / SPRACHUMSCHALTUNG (DE / EN) ================= -->
+  <script>
+    const i18n = {
+      de: {
+        "nav.vision": "THE VISION",
+        "nav.sports": "SPORTS",
+        "nav.physio": "PHYSIOLOGIE",
+        "nav.about": "ABOUT",
+        "nav.contact": "CONTACT",
+        "nav.earlyAccess": "EARLY ACCESS",
+        "nav.earlyAccessDrawer": "EARLY ACCESS SICHERN",
+        "nav.langLabel": "Sprache / Language",
+
+        "hero.badge": "YOURGAYA – PRE-LAUNCH 2026",
+        "hero.title": "FUEL YOUR<br><span class=\"text-[#28a362]\">NEXT</span> CHAPTER.",
+        "hero.subtitle": "Das neu optimierte Energy Gel der nächsten Generation.<br>Spürbar schneller im Ziel. Ohne Leistungseinbruch.<br>Ohne Magenstress.",
+        "hero.note": "Hinweis: Zum Schutz unserer Entwicklung veröffentlichen wir die genaue Zusammensetzung erst zum offiziellen Produktstart.",
+        "hero.btnDiscover": "DISCOVER YOURGAYA",
+        "hero.btnPhysio": "ZUR PHYSIOLOGIE",
+        "hero.scrollDown": "SCROLL DOWN",
+
+        "marathon.desc": "Lange Distanzen verlangen mehr als körperliche Ausdauer. Mentale Klarheit und eine zuverlässige, magenverträgliche Energieversorgung spielen eine rennentscheidende Rolle.",
+        "marathon.challengeTitle": "DIE HERAUSFORDERUNG",
+        "marathon.c1": "Magen-Darm-Krämpfe & Völlegefühl während langer Läufe.",
+        "marathon.c2": "Nachlassender Fokus & Konzentration im Renntempo.",
+        "marathon.c3": "Typischer Pace-Einbruch im letzten Rennviertel.",
+        "marathon.visionTitle": "DIE YOURGAYA VISION",
+        "marathon.visionDesc": "Ein revolutionärer Energie-Ansatz für ambitionierte Läufer. Cleane, hochgradig bioverfügbare Rezeptur ohne Magenstress, für konstante Energie und glasklaren Fokus bis über die Ziellinie.",
+
+        "cycling.desc": "Stunden im Sattel, endlose Anstiege und extreme Belastungswechsel stellen höchste Anforderungen an den Magen und die gleichmäßige Glykogenzufuhr.",
+        "cycling.challengeTitle": "DIE HERAUSFORDERUNG",
+        "cycling.c1": "Magen-Darm-Beschwerden nach mehreren Stunden Belastung.",
+        "cycling.c2": "Klebrige Sportgels mit künstlichen Spitzen und Crashs.",
+        "cycling.c3": "Nachlassende Leistung an den entscheidenden Bergen.",
+        "cycling.visionTitle": "DIE YOURGAYA VISION",
+        "cycling.visionDesc": "YourGaya verbindet einen hochfunktionellen Inhaltstoff mit einem Dual-Carb-Verhältnis für absolut stabilen Magenkomfort und konstante Power über lange Strecken.",
+
+        "hyrox.desc": "Intensive Belastungswechsel zwischen Running und Workout-Stationen treiben den Puls ans Limit. HYROX verlangt pure Explosivität und unzerbrechliche mentale Härte.",
+        "hyrox.challengeTitle": "DIE HERAUSFORDERUNG",
+        "hyrox.c1": "Extrem hohe Laktatspitzen zwischen Sled und Burpees.",
+        "hyrox.c2": "Kreislauf-Stress & Zittern durch synthetisches Koffein.",
+        "hyrox.c3": "Plötzlicher Leistungsabfall bei den Wall Balls am Schluss.",
+        "hyrox.visionTitle": "DIE YOURGAYA VISION",
+        "hyrox.visionDesc": "Ein innovativer Energie-Komplex für maximale Wettkampf-Intensität. Schützt den Puls vor stressigen Ausschlägen, liefert kontinuierliche Power und eliminiert den Erschöpfungsabsturz.",
+
+        "multisport.desc": "Sport ist vielseitig – vom Center Court über Trail-Berge bis zum Fußballrasen. YourGaya wurde für Athleten entwickelt, die kompromisslose Performance erwarten.",
+        "multisport.teamSport": "TEAMSPORT",
+        "multisport.visionTitle": "DIE YOURGAYA VISION",
+        "multisport.visionDesc": "Ein allumfassender Energiebooster für aktive Athleten – vom intensiven Intervalltraining bis zu neuen persönlichen Bestzeiten.",
+
+        "graph.title": "Bioverfügbare Zellenergie & Kognitiver Fokus über Zeit",
+        "graph.subtitle": "Gemessen in Belastungsminuten nach Einnahme unter Wettkampf-Intensität",
+        "graph.label1": "STANDARD-GEL: PEAK & STRESS",
+        "graph.label2": "YOURGAYA: +60% STEADY-FLOW PLATEAU",
+        "graph.label3": "Crash & Speicher-Verbrauch (-25%)",
+        "graph.label4": "YourGaya: Soft Landing (auf 0%)",
+
+        "waitlist.subtitle": "Sei von Anfang an dabei.",
+        "waitlist.desc": "Wähle deine Sportart, setze dich auf die exklusive Warteliste für den ersten Produkt-Release und erfahre als Erster von YourGaya.",
+        "waitlist.sportLabel": "Deine Hauptsportart *",
+        "waitlist.sportSelectDefault": "Sportart auswählen...",
+        "waitlist.sportOptSoccer": "Fußball & Teamsport",
+        "waitlist.sportOptCustom": "+ Andere / Eigene Sportart eintragen...",
+        "waitlist.customSportLabel": "Deine eigene Sportart eintragen *",
+        "waitlist.customSportPlaceholder": "z. B. Schwimmen, Rudern, CrossFit, Basketball, Kampfsport...",
+        "waitlist.emailLabel": "Deine E-Mail-Adresse *",
+        "waitlist.emailPlaceholder": "E-Mail-Adresse eingeben",
+        "waitlist.badge": "Limited First Release – Exklusiver Vorabzugang.",
+        "waitlist.success": "✓ Perfekt! Du stehst mit deiner Sportart auf der Liste für den ersten YourGaya Produkt-Release.",
+
+        "investors.desc": "YourGaya befindet sich offiziell in der vorbereitenden Pre-Launch- und Entwicklungsphase. Wir sind offen für strategische Partnerschaften und ausgewählte Investoren, die unsere Vision unterstützen wollen.",
+        "investors.btn": "GET IN TOUCH",
+
+        "footer.impressum": "Impressum",
+        "footer.datenschutz": "Datenschutz",
+        "footer.kontakt": "Kontakt",
+
+        "modal.impressumTitle": "Impressum",
+        "modal.datenschutzTitle": "Datenschutzerklärung",
+        "modal.kontaktTitle": "Kontakt",
+        "modal.kontaktSubtitle": "Für allgemeine Fragen, Sportler-Anfragen oder strategische Partnerschaften.",
+        "modal.contactPerson": "Ansprechpartner:",
+        "modal.emailDirect": "E-Mail (Direkt):",
+        "modal.emailGeneral": "E-Mail (Allgemein):",
+        "modal.btnSendEmail": "E-MAIL SCHREIBEN"
+      },
+      en: {
+        "nav.vision": "THE VISION",
+        "nav.sports": "SPORTS",
+        "nav.physio": "PHYSIOLOGY",
+        "nav.about": "ABOUT",
+        "nav.contact": "CONTACT",
+        "nav.earlyAccess": "EARLY ACCESS",
+        "nav.earlyAccessDrawer": "GET EARLY ACCESS",
+        "nav.langLabel": "Language / Sprache",
+
+        "hero.badge": "YOURGAYA – PRE-LAUNCH 2026",
+        "hero.title": "FUEL YOUR<br><span class=\"text-[#28a362]\">NEXT</span> CHAPTER.",
+        "hero.subtitle": "The next-generation optimized energy gel.<br>Noticeably faster at the finish line. Zero performance crash.<br>Zero stomach distress.",
+        "hero.note": "Note: To protect our proprietary formula, the exact composition will be unveiled upon the official product launch.",
+        "hero.btnDiscover": "DISCOVER YOURGAYA",
+        "hero.btnPhysio": "EXPLORE PHYSIOLOGY",
+        "hero.scrollDown": "SCROLL DOWN",
+
+        "marathon.desc": "Long distances demand far more than physical stamina. Mental clarity and reliable, stomach-friendly energy delivery play a race-deciding role.",
+        "marathon.challengeTitle": "THE CHALLENGE",
+        "marathon.c1": "Gastrointestinal cramps & bloating during long continuous runs.",
+        "marathon.c2": "Fading focus & concentration breakdown at race pace.",
+        "marathon.c3": "Classic pace drop in the final quarter of the marathon.",
+        "marathon.visionTitle": "THE YOURGAYA VISION",
+        "marathon.visionDesc": "A revolutionary energy formulation for ambitious runners. Clean, highly bioavailable ingredients without stomach distress, providing constant power and razor-sharp focus across the finish line.",
+
+        "cycling.desc": "Hours in the saddle, relentless climbs, and extreme load shifts place maximum demands on digestion and steady glycogen replenishment.",
+        "cycling.challengeTitle": "THE CHALLENGE",
+        "cycling.c1": "GI distress and digestive discomfort after hours of exertion.",
+        "cycling.c2": "Sticky energy gels causing artificial insulin spikes and crashes.",
+        "cycling.c3": "Fading power and wattage on the decisive summit finish.",
+        "cycling.visionTitle": "THE YOURGAYA VISION",
+        "cycling.visionDesc": "YourGaya combines high-performance bio-actives with an optimized dual-carb ratio for uncompromising gut comfort and sustained power over long distances.",
+
+        "hyrox.desc": "Relentless shifts between 1 km runs and functional workout stations drive heart rate to the red line. HYROX demands explosive power and unbreakable mental toughness.",
+        "hyrox.challengeTitle": "THE CHALLENGE",
+        "hyrox.c1": "Severe lactate spikes between heavy sled pushes and burpees.",
+        "hyrox.c2": "Cardiovascular stress & nervous jitters from synthetic caffeine.",
+        "hyrox.c3": "Sudden performance collapse at the final wall balls station.",
+        "hyrox.visionTitle": "THE YOURGAYA VISION",
+        "hyrox.visionDesc": "An innovative energy complex engineered for maximum competition intensity. Stabilizes heart rate, delivers continuous power, and eliminates the dreaded crash.",
+
+        "multisport.desc": "Sport is multifaceted – from the center court to mountain trails and team pitches. YourGaya was built for athletes who demand uncompromising performance.",
+        "multisport.teamSport": "TEAM SPORTS",
+        "multisport.visionTitle": "THE YOURGAYA VISION",
+        "multisport.visionDesc": "A universal energy booster for active athletes – from high-intensity interval training to new personal bests.",
+
+        "graph.title": "Bioavailable Cellular Energy & Cognitive Focus Over Time",
+        "graph.subtitle": "Measured in minutes of exertion after intake under competition intensity",
+        "graph.label1": "STANDARD GEL: PEAK & STRESS",
+        "graph.label2": "YOURGAYA: +60% STEADY-FLOW PLATEAU",
+        "graph.label3": "Crash & Glycogen Depletion (-25%)",
+        "graph.label4": "YourGaya: Soft Landing (to 0%)",
+
+        "waitlist.subtitle": "Be there from the very beginning.",
+        "waitlist.desc": "Select your sport, secure your spot on the exclusive waitlist for our first product release, and be the first to experience YourGaya.",
+        "waitlist.sportLabel": "Your Primary Sport *",
+        "waitlist.sportSelectDefault": "Select a sport...",
+        "waitlist.sportOptSoccer": "Football & Team Sports",
+        "waitlist.sportOptCustom": "+ Other / Enter custom sport...",
+        "waitlist.customSportLabel": "Enter your custom sport *",
+        "waitlist.customSportPlaceholder": "e.g. Swimming, Rowing, CrossFit, Basketball, Martial Arts...",
+        "waitlist.emailLabel": "Your Email Address *",
+        "waitlist.emailPlaceholder": "Enter your email address",
+        "waitlist.badge": "Limited First Release – Exclusive Early Access.",
+        "waitlist.success": "✓ Perfect! You are on the priority waitlist for the first YourGaya product release.",
+
+        "investors.desc": "YourGaya is officially in its preparatory pre-launch and development phase. We welcome strategic partnerships and select investors who wish to support our vision.",
+        "investors.btn": "GET IN TOUCH",
+
+        "footer.impressum": "Legal Notice / Impressum",
+        "footer.datenschutz": "Privacy Policy",
+        "footer.kontakt": "Contact",
+
+        "modal.impressumTitle": "Legal Notice / Impressum",
+        "modal.datenschutzTitle": "Privacy Policy",
+        "modal.kontaktTitle": "Contact",
+        "modal.kontaktSubtitle": "For general inquiries, athlete partnerships, or strategic investments.",
+        "modal.contactPerson": "Contact Person:",
+        "modal.emailDirect": "Email (Direct):",
+        "modal.emailGeneral": "Email (General):",
+        "modal.btnSendEmail": "SEND EMAIL"
+      }
+    };
+
+    let currentLang = localStorage.getItem('yourgaya_lang') || 'de';
+
+    function applyLanguage(lang) {
+      currentLang = lang;
+      try {
+        localStorage.setItem('yourgaya_lang', lang);
+      } catch(e) {}
+      document.documentElement.lang = lang;
+
+      // 1. Text-Elemente mit data-i18n aktualisieren
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (i18n[lang] && i18n[lang][key] !== undefined) {
+          el.innerHTML = i18n[lang][key];
+        }
+      });
+
+      // 2. Input-Placeholders mit data-i18n-placeholder aktualisieren
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (i18n[lang] && i18n[lang][key] !== undefined) {
+          el.placeholder = i18n[lang][key];
+        }
+      });
+
+      // 3. UI-Schalteranzeigen aktualisieren
+      document.querySelectorAll('.lang-label-de').forEach(el => {
+        if (lang === 'de') {
+          el.className = 'lang-label-de text-gayaAccent font-bold';
+        } else {
+          el.className = 'lang-label-de text-white/50 group-hover:text-white';
+        }
+      });
+
+      document.querySelectorAll('.lang-label-en').forEach(el => {
+        if (lang === 'en') {
+          el.className = 'lang-label-en text-gayaAccent font-bold';
+        } else {
+          el.className = 'lang-label-en text-white/50 group-hover:text-white';
+        }
+      });
+
+      // Mobile Badge: Zeigt die Sprache an, auf die man umschalten kann
+      document.querySelectorAll('.lang-mobile-indicator').forEach(el => {
+        el.textContent = lang === 'de' ? 'EN' : 'DE';
+      });
+
+      // Navigations-Indikator neu berechnen falls Breiten variieren
+      if (typeof initNavGlidingIndicator === 'function') {
+        setTimeout(initNavGlidingIndicator, 40);
+      }
+    }
+
+    function toggleLanguage() {
+      const nextLang = currentLang === 'de' ? 'en' : 'de';
+      applyLanguage(nextLang);
+    }
+
+    // Beim Laden gespeicherte Sprache anwenden
+    document.addEventListener('DOMContentLoaded', () => {
+      if (currentLang && currentLang !== 'de') {
+        applyLanguage(currentLang);
+      }
+    });
+  </script>
 
 </body></html>
